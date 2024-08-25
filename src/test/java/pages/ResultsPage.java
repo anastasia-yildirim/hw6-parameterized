@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.CollectionCondition;
+import tests.data.enums.City;
 
 import java.util.List;
 

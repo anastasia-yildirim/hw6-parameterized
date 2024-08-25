@@ -46,20 +46,21 @@ public class SearchPage {
             $("[data-test-id='multiway-origin-input']").clear();
         }
         $$("[data-test-id='multiway-origin-input']").get(i).setValue(originCity);
-        sleep(2000);
+        sleep(1000);
         return this;
     }
 
     public SearchPage setDestination(String destinationCity) {
         $("[data-test-id='destination-input']").setValue(destinationCity);
         sleep(1000);
+
         return this;
     }
 
     public SearchPage setMultiwayDestination(String destinationCity, int i) {
         $$("[data-test-id='multiway-destination-input']").get(i).setValue(destinationCity);
-        $("[data-test-id='dropdown']").should(appear);
-        //sleep(3000);
+        sleep(1000);
+
         return this;
     }
 
@@ -84,7 +85,6 @@ public class SearchPage {
 
         setMultiwayOrigin(originCities.get(i), i);
         setMultiwayDestination(destinationCities.get(i), i);
-        sleep(1000);
         setMultiWayDepartureDate(i);
 
         return this;

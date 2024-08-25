@@ -63,12 +63,12 @@ public class TicketSearchTests extends TestBase {
     static Stream<Arguments> searchForMultiCityTicketTest() {
         return Stream.of(
                 Arguments.of(
-                        List.of("Москва", "Санкт-Петербург", "Калининград"),
-                        List.of("Санкт-Петербург", "Калининград", "Москва")
+                        List.of("Амстердам", "Париж", "Хельсинки"),
+                        List.of("Барселона", "Осло", "Амстердам")
                 ),
                 Arguments.of(
-                        List.of("Амстердам", "Париж", "Копенгаген"),
-                        List.of("Барселона", "Берлин", "Хельсинки")
+                        List.of("Москва", "Санкт-Петербург", "Калининград"),
+                        List.of("Санкт-Петербург", "Калининград", "Москва")
                 )
         );
     }
