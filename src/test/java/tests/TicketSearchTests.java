@@ -3,7 +3,6 @@ package tests;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -20,8 +19,21 @@ import static com.codeborne.selenide.Selenide.sleep;
 
 public class TicketSearchTests extends TestBase {
 
-    SearchPage searchPage = new SearchPage();
-    ResultsPage resultsPage = new ResultsPage();
+    final SearchPage searchPage = new SearchPage();
+    final ResultsPage resultsPage = new ResultsPage();
+
+    static Stream<Arguments> searchForMultiCityTicketTest() {
+        return Stream.of(
+                Arguments.of(
+                        List.of("Амстердам", "Париж", "Хельсинки"),
+                        List.of("Барселона", "Осло", "Амстердам")
+                ),
+                Arguments.of(
+                        List.of("Москва", "Санкт-Петербург", "Калининград"),
+                        List.of("Санкт-Петербург", "Калининград", "Москва")
+                )
+        );
+    }
 
     @EnumSource(Airport.class)
     @ParameterizedTest(name = "Поиск билета Москва-{0} в одну сторону")
@@ -30,7 +42,7 @@ public class TicketSearchTests extends TestBase {
 
         searchPage.openPage("?params=MOW1")
                 .preventAdFromOpening()
-                .setDestination(airport.name().toString())
+                .setDestination(airport.name())
                 .setDepartureDate()
                 .findTickets();
         sleep(20000);
@@ -58,19 +70,6 @@ public class TicketSearchTests extends TestBase {
         resultsPage.checkResultsAppear()
                 .checkIsRoundTrip()
                 .checkRoundTripItinerary(originCity, destinationCity);
-    }
-
-    static Stream<Arguments> searchForMultiCityTicketTest() {
-        return Stream.of(
-                Arguments.of(
-                        List.of("Амстердам", "Париж", "Хельсинки"),
-                        List.of("Барселона", "Осло", "Амстердам")
-                ),
-                Arguments.of(
-                        List.of("Москва", "Санкт-Петербург", "Калининград"),
-                        List.of("Санкт-Петербург", "Калининград", "Москва")
-                )
-        );
     }
 
     @MethodSource

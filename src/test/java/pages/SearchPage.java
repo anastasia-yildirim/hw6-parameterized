@@ -1,11 +1,9 @@
 package pages;
 
 import com.codeborne.selenide.Selenide;
-import tests.data.enums.Airport;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class SearchPage {
@@ -41,13 +39,12 @@ public class SearchPage {
         return this;
     }
 
-    public SearchPage setMultiwayOrigin(String originCity, int i) {
+    public void setMultiwayOrigin(String originCity, int i) {
         if (i == 0) {
             $("[data-test-id='multiway-origin-input']").clear();
         }
         $$("[data-test-id='multiway-origin-input']").get(i).setValue(originCity);
         sleep(1000);
-        return this;
     }
 
     public SearchPage setDestination(String destinationCity) {
@@ -57,11 +54,9 @@ public class SearchPage {
         return this;
     }
 
-    public SearchPage setMultiwayDestination(String destinationCity, int i) {
+    public void setMultiwayDestination(String destinationCity, int i) {
         $$("[data-test-id='multiway-destination-input']").get(i).setValue(destinationCity);
         sleep(1000);
-
-        return this;
     }
 
     public SearchPage setDepartureDate() {
@@ -71,14 +66,12 @@ public class SearchPage {
         return this;
     }
 
-    public SearchPage setMultiWayDepartureDate(int i) {
+    public void setMultiWayDepartureDate(int i) {
         Selenide.executeJavaScript("arguments[0].click();", $$("[data-test-id='multiway-date']").get(i));
         int day = 29 + i;
         String dateLocator = "[data-test-id='date-" + day + ".08.2024']";
         Selenide.executeJavaScript("arguments[0].scrollIntoView({block: 'center'});", $(dateLocator));
         $(dateLocator).click();
-
-        return this;
     }
 
     public SearchPage setMultiWayFlight(List<String> originCities, List<String> destinationCities, int i) {
